@@ -683,6 +683,11 @@ select { padding-left: 40px; cursor: pointer; }
         <div style="margin-top:20px; padding:14px; background:var(--surface); border-radius:10px; font-size:13px; color:var(--muted); line-height:1.55;">
           📋 <strong style="color:var(--ink2)">Next step:</strong> Scan any patrol QR code at your site — the check-in form will already know who you are.
         </div>
+
+        <button class="btn btn-ghost" style="margin-top:16px; color:#c0392b;" onclick="signOut()">
+          🚪 Sign Out / Switch Guard
+        </button>
+        
       </div>
     </div>
 
@@ -990,6 +995,18 @@ function getGuard() {
 function isRegistered() {
   const g = getGuard();
   return g && g.verified === true && g.phone;
+}
+
+// ── SIGN OUT ──────────────────────────────────────
+function signOut() {
+  if (!confirm('Sign out and clear this device? The next person will need to register again.')) return;
+  localStorage.clear();
+  sessionStorage.clear();
+  document.getElementById('iName').value  = '';
+  document.getElementById('iIC').value    = '';
+  document.getElementById('iPost').value  = '';
+  document.getElementById('iPhone').value = '';
+  goToStep(1);
 }
 
 // ── HELPERS ───────────────────────────────────────
